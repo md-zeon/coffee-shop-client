@@ -1,7 +1,13 @@
+import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 const CoffeeCard = ({ coffee }) => {
+    const navigate = useNavigate();
 	const { _id, name, quantity, price, photo } = coffee;
+
+    const handleViewDetails = () => {
+		navigate(`/coffee/${_id}`);
+	};
 
 	const handleDelete = (id) => {
 		console.log("Delete Coffee");
@@ -49,7 +55,7 @@ const CoffeeCard = ({ coffee }) => {
 				</div>
 				<div className='card-actions justify-end items-center'>
 					<div className='join join-vertical'>
-						<button className='btn join-item btn-primary'>View</button>
+						<button onClick={handleViewDetails} className='btn join-item btn-primary'>View</button>
 						<button className='btn join-item btn-accent'>Edit</button>
 						<button
 							onClick={() => handleDelete(_id)}
