@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
     const navigate = useNavigate();
 	const { _id, name, quantity, price, photo } = coffee;
 
@@ -39,6 +39,11 @@ const CoffeeCard = ({ coffee }) => {
                             console.log("After Delete", data);
 						}
 					});
+
+                    // remove coffee from UI
+                    const remainingCoffees = coffees.filter((c) => c._id !== id);
+                    setCoffees(remainingCoffees);
+                    console.log("After Delete", remainingCoffees);
 			}
 		});
 	};
