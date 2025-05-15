@@ -9,6 +9,10 @@ const CoffeeCard = ({ coffee }) => {
 		navigate(`/coffee/${_id}`);
 	};
 
+    const handleUpdateCoffee = () => {
+		navigate(`/update-coffee/${_id}`);
+	};
+
 	const handleDelete = (id) => {
 		console.log("Delete Coffee");
 		Swal.fire({
@@ -56,7 +60,7 @@ const CoffeeCard = ({ coffee }) => {
 				<div className='card-actions justify-end items-center'>
 					<div className='join join-vertical'>
 						<button onClick={handleViewDetails} className='btn join-item btn-primary'>View</button>
-						<button className='btn join-item btn-accent'>Edit</button>
+						<button onClick={handleUpdateCoffee} className='btn join-item btn-accent'>Edit</button>
 						<button
 							onClick={() => handleDelete(_id)}
 							className='btn join-item btn-error'

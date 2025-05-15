@@ -25,7 +25,9 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/update-coffee/:id",
+        loader: ({ params }) => fetch(`http://localhost:3000/coffees/${params.id}`),
 				Component: UpdateCoffee,
+        hydrateFallbackElement: <p>Loading...</p>,
 			},
       {
         path: "/coffee/:id",
