@@ -1,9 +1,34 @@
-const AddCoffee = () => {
+import Swal from "sweetalert2";
 
-    const handleAddCoffee = (e) => {
-        e.preventDefault();
-        const form = e.target;
-    }
+const AddCoffee = () => {
+	const handleAddCoffee = (e) => {
+		e.preventDefault();
+		const form = e.target;
+		const formData = new FormData(form);
+		console.log(formData.entries());
+		const newCoffee = Object.fromEntries(formData.entries());
+		console.log(newCoffee);
+		// send data to the server
+		fetch("http://localhost:3000/coffees", {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify(newCoffee),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.insertedId) {
+					console.log("After Adding Coffee to DB", data);
+					Swal.fire({
+						title: "Coffee added successfully!",
+						icon: "success",
+						draggable: true,
+					});
+                    form.reset();
+				}
+			});
+	};
 
 	return (
 		<div className='p-24'>
@@ -15,7 +40,7 @@ const AddCoffee = () => {
 					opposed to using Content here.
 				</p>
 			</div>
-			<form onClick={handleAddCoffee}>
+			<form onSubmit={handleAddCoffee}>
 				<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 					<fieldset className='fieldset bg-base-200 border-base-300 rounded-box border p-4'>
 						<label className='label'>Name</label>
@@ -28,12 +53,12 @@ const AddCoffee = () => {
 						/>
 					</fieldset>
 					<fieldset className='fieldset bg-base-200 border-base-300 rounded-box border p-4'>
-						<label className='label'>Chef</label>
+						<label className='label'>Quantity</label>
 						<input
 							type='text'
 							className='input w-full'
-							name='chef'
-							placeholder='Coffee Chef'
+							name='quantity'
+							placeholder='Coffee Quantity'
 							required
 						/>
 					</fieldset>
@@ -58,12 +83,12 @@ const AddCoffee = () => {
 						/>
 					</fieldset>
 					<fieldset className='fieldset bg-base-200 border-base-300 rounded-box border p-4'>
-						<label className='label'>Category</label>
+						<label className='label'>Price</label>
 						<input
 							type='text'
 							className='input w-full'
-							name='category'
-							placeholder='Coffee Category'
+							name='price'
+							placeholder='Coffee Price'
 							required
 						/>
 					</fieldset>
