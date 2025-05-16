@@ -4,15 +4,41 @@ import AuthContext from "../contexts/AuthContext";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
-	const { loginUser } = use(AuthContext);
+	const { signInUser } = use(AuthContext);
 
 	const handleSignIn = (e) => {
 		e.preventDefault();
 		const form = e.target;
-		const formData = new FormData(form);
-		const { email, password } = Object.fromEntries(formData.entries());
+		const email = form.email.value;
+		const password = form.password.value;
 		// Sign in user
 		console.log(email, password);
+
+		signInUser(email, password)
+			.then((res) => {
+				const user = res.user;
+				const signInInfo = {
+					email,
+					lastSignInTime: user?.metadata?.lastSignInTime,
+				};
+
+				// update sign in to database
+
+				fetch("http://localhost:3000/users", {
+					method: "PATCH",
+					headers: {
+						"content-type": "application/json",
+					},
+					body: JSON.stringify(signInInfo),
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						console.log("After Update", data);
+					});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 	return (
 		<div className='card bg-base-100 max-w-sm mx-auto shrink-0 shadow-2xl'>
