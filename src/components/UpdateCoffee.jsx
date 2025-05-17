@@ -11,7 +11,7 @@ const UpdateCoffee = () => {
 		const updatedCoffee = Object.fromEntries(formData.entries());
 		console.log(updatedCoffee);
 		// send updated data to the server
-		fetch(`http://localhost:3000/coffees/${_id}`, {
+		fetch(`https://coffee-shop-server-sigma-lime.vercel.app/coffees/${_id}`, {
 			method: "PUT",
 			headers: {
 				"content-type": "application/json",

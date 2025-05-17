@@ -24,7 +24,7 @@ const SignUp = () => {
 
 				// update sign in to database
 
-				fetch("http://localhost:3000/users", {
+				fetch("https://coffee-shop-server-sigma-lime.vercel.app/users", {
 					method: "PATCH",
 					headers: {
 						"content-type": "application/json",
@@ -34,6 +34,14 @@ const SignUp = () => {
 					.then((res) => res.json())
 					.then((data) => {
 						console.log("After Update", data);
+						Swal.fire({
+							position: "top-end",
+							icon: "success",
+							title: "You signed in Successfully",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+						form.reset();
 					});
 			})
 			.catch((error) => {

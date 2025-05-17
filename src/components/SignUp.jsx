@@ -27,7 +27,7 @@ const SignUp = () => {
                 }
 
 				// save user profile in database
-				fetch("http://localhost:3000/users", {
+				fetch("https://coffee-shop-server-sigma-lime.vercel.app/users", {
 					method: "POST",
 					headers: {
 						"content-type": "application/json",
